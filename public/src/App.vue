@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
-  </div>
+<div id="app">
+  <img src="./assets/logo.png">
+  <HelloWorld/>
+</div>
 </template>
 
 <script>
