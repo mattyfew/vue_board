@@ -20,10 +20,11 @@
         </header>
 
         <main>
-            <h1>This is main</h1>
-            <section>
+            <h1 class="center">Welcome to Vue_board</h1>
+            <section id="all-images-container">
                 <div class="single-image-container" v-for="image in images">
-                    <img v-bind:src="'https://s3.amazonaws.com/spicedling/' + image.image" :alt="image.title">
+                    <h3>{{ image.title }}</h3>
+                    <img v-bind:src="'https://s3.amazonaws.com/spicedling/' + image.image" :alt="image.title" class="single-image">
                     <!-- shorthand ---  :src="..." -->
                 </div>
             </section>

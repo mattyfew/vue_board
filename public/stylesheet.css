@@ -31,3 +31,25 @@ nav ul { display: flex; list-style-type: none; }
 nav a { color: white; text-decoration: none; }
 nav a:hover { color: #1C4CB2; }
 nav li { padding-right: 15px; }
+
+
+/* MAIN - all images
+============================================================= */
+#all-images-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.single-image-container {
+    border: 1px solid blue;
+    padding: 32px;
+    margin: 16px;
+}
+.single-image {
+    max-width: 300px;
+}
+
+
+/* HELPERS
+    ======================================================= */
+
+.center { text-align: center; }
