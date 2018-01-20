@@ -21,9 +21,15 @@
 
         <main>
             <h1>This is main</h1>
+            <section>
+                <div class="single-image-container" v-for="image in images">
+                    <img v-bind:src="'https://s3.amazonaws.com/spicedling/' + image.image" :alt="image.title">
+                    <!-- shorthand ---  :src="..." -->
+                </div>
+            </section>
         </main>
 
 
-        <script src="script.js" charset="utf-8"></script>
+        <script src="app.js" charset="utf-8"></script>
     </body>
 </html>
