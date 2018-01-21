@@ -25,11 +25,11 @@
             <section id="upload-form">
                 <p>Upload a new picture here</p>
                 <form action="">
-                    <input type="text" placeholder="title" name="title">
-                    <input type="text" placeholder="description" name="description">
-                    <input type="text" placeholder="username" name="username">
+                    <input v-model="formStuff.title" type="text" placeholder="title" name="title">
+                    <input v-model="formStuff.description" type="text" placeholder="description" name="description">
+                    <input v-model="formStuff.username" type="text" placeholder="username" name="username">
                     <input type="file" name="file">
-                    <button>Upload</button>
+                    <button type="button" @click="upload">Upload</button>
                 </form>
 
             </section>

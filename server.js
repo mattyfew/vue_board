@@ -53,37 +53,43 @@ app.get('/images', (req, res) => {
         .catch(e => console.log('There was an error with GET /images', e) )
 })
 
-// app.post('/uploadImage', uploader.single('file'), function(req, res) {
-//     if (req.file) {
-//         const { username, title, description } = req.body;
-//
-//             const s3Request = client.put(req.file.filename, {
-//                 'Content-Type': req.file.mimetype,
-//                 'Content-Length': req.file.size,
-//                 'x-amz-acl': 'public-read'
-//             });
-//             const readStream = fs.createReadStream(req.file.path);
-//             readStream.pipe(s3Request);
-//
-//             s3Request.on('response', s3Response => {
-//                 const wasSuccessful = s3Response.statusCode == 200;
-//                 const q = 'INSERT INTO images (image, username, title, description) VALUES ($1, $2, $3, $4)'
-//                 const params = [req.file.filename, username, title, description]
-//
-//                 db.query(q, params)
-//                 .then(() => {
-//                     console.log(req.file.filename, wasSuccessful);
-//                     res.json({ success: wasSuccessful });
-//                 })
-//                 .catch((err) => {
-//                     console.log(err);
-//                     res.json({ success: false });
-//                 })
-//             });
-//     } else {
-//         res.json({ success: false });
-//     }
-// })
+
+app.post('/upload-image', uploader.single('file'), function(req, res) {
+
+    console.log("in here", req.body);
+
+    if (req.file) {
+        console.log("theres a file");
+        res.json({success: true})
+        // const { username, title, description } = req.body;
+        //
+        // const s3Request = client.put(req.file.filename, {
+        //     'Content-Type': req.file.mimetype,
+        //     'Content-Length': req.file.size,
+        //     'x-amz-acl': 'public-read'
+        // });
+        // const readStream = fs.createReadStream(req.file.path);
+        // readStream.pipe(s3Request);
+        //
+        // s3Request.on('response', s3Response => {
+        //     const wasSuccessful = s3Response.statusCode == 200;
+        //     const q = 'INSERT INTO images (image, username, title, description) VALUES ($1, $2, $3, $4)'
+        //     const params = [req.file.filename, username, title, description]
+        //
+        //     db.query(q, params)
+        //     .then(() => {
+        //         console.log(req.file.filename, wasSuccessful);
+        //         res.json({ success: wasSuccessful });
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //         res.json({ success: false });
+        //     })
+        // });
+    } else {
+        res.json({ success: false });
+    }
+})
 
 app.set('port', process.env.PORT || 8080)
 app.listen(app.get('port'), () => console.log(`I'm listening.`))
