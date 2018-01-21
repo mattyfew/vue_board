@@ -49,6 +49,16 @@ nav li { padding-right: 15px; }
 }
 
 
+
+/* Upload Form
+============================================================= */
+
+#upload-form {
+    background-color: #C4C4C4;
+    margin: 32px;
+    padding: 32px;
+}
+
 /* HELPERS
     ======================================================= */
 

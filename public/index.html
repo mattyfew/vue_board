@@ -21,6 +21,19 @@
 
         <main>
             <h1 class="center">Welcome to Vue_board</h1>
+
+            <section id="upload-form">
+                <p>Upload a new picture here</p>
+                <form action="">
+                    <input type="text" placeholder="title" name="title">
+                    <input type="text" placeholder="description" name="description">
+                    <input type="text" placeholder="username" name="username">
+                    <input type="file" name="file">
+                    <button>Upload</button>
+                </form>
+
+            </section>
+
             <section id="all-images-container">
                 <div class="single-image-container" v-for="image in images">
                     <h3>{{ image.title }}</h3>
