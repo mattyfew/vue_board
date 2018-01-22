@@ -8,7 +8,8 @@
             formStuff: {
                 title: '',
                 description: '',
-                username: ''
+                username: '',
+                file: null
             }
 
         },
@@ -21,14 +22,15 @@
                 .catch(e => console.log("There was an error with GET /image", e))
         },
         methods: {
+            chooseFile: function(e) {
+                this.formStuff.file = e.target.files[0];
+            },
+
             upload: function(e) {
                 e.preventDefault()
 
-                // let file = $('input[type="file"]').get(0).files[0]
-                // const file = document.querySelector('input[type="file"]').files[0]
-                const file = document.querySelector('input[type="file"]').files
-                let formData = new FormData()
-                formData.append('file', file)
+                const formData = new FormData()
+                formData.append('file', this.formStuff.file)
                 formData.append('title', this.formStuff.title)
                 formData.append('description', this.formStuff.description)
                 formData.append('username', this.formStuff.username)

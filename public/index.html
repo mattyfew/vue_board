@@ -28,7 +28,7 @@
                     <input v-model="formStuff.title" type="text" placeholder="title" name="title">
                     <input v-model="formStuff.description" type="text" placeholder="description" name="description">
                     <input v-model="formStuff.username" type="text" placeholder="username" name="username">
-                    <input type="file" name="file">
+                    <input type="file" name="file" v-on:change="chooseFile">
                     <button type="button" @click="upload">Upload</button>
                 </form>
 

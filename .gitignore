@@ -1,4 +1,5 @@
 secrets.json
+uploads/*
 
 .DS_Store
 node_modules/
