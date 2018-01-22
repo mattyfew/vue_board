@@ -49,7 +49,7 @@ app.get('/images', (req, res) => {
     const q = 'SELECT * FROM images'
 
     db.query(q)
-        .then(results => res.json({ images: results.rows}) )
+        .then(results => res.json({ images: results.rows }) )
         .catch(e => console.log('There was an error with GET /images', e) )
 })
 

@@ -21,6 +21,7 @@
 
         <main>
             <h1 class="center">Welcome to Vue_board</h1>
+            <single-image></single-image>
 
             <section id="upload-form">
                 <p>Upload a new picture here</p>
@@ -37,11 +38,18 @@
             <section id="all-images-container">
                 <div class="single-image-container" v-for="image in images">
                     <h3>{{ image.title }}</h3>
-                    <img v-bind:src="'https://s3.amazonaws.com/spicedling/' + image.image" :alt="image.title" class="single-image">
+                    <img v-bind:src="'https://s3.amazonaws.com/vue-board/' + image.image" :alt="image.title" class="single-image">
                     <!-- shorthand ---  :src="..." -->
                 </div>
             </section>
         </main>
+
+
+        <script id="single-image-template" type="x-template">
+            <div>
+                <p>test test</p>
+            </div>
+        </script>
 
 
         <script src="app.js" charset="utf-8"></script>

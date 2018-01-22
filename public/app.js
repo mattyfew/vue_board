@@ -11,7 +11,6 @@
                 username: '',
                 file: null
             }
-
         },
         mounted: function() {
             var vm = this
@@ -45,7 +44,14 @@
     })
 
 
-
+    Vue.component('single-image', {
+        template: '#single-image-template',
+        data: function() {
+            return {
+                name: 'sample'
+            }
+        }
+    })
 
     addEventListener('hashchange',  function() {
         app.showImage(location.hash.slice(1))
