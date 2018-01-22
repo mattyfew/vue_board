@@ -22,7 +22,7 @@ if (process.env.NODE_ENV == 'production') {
 const client = knox.createClient({
     key: secrets.AWS_KEY,
     secret: secrets.AWS_SECRET,
-    bucket: 'spicedling'
+    bucket: secrets.BUCKET
 })
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -55,39 +55,36 @@ app.get('/images', (req, res) => {
 
 
 app.post('/upload-image', uploader.single('file'), function(req, res) {
-
-    console.log("in here", req.body);
-
     if (req.file) {
-        console.log("theres a file");
-        res.json({success: true})
-        // const { username, title, description } = req.body;
-        //
-        // const s3Request = client.put(req.file.filename, {
-        //     'Content-Type': req.file.mimetype,
-        //     'Content-Length': req.file.size,
-        //     'x-amz-acl': 'public-read'
-        // });
-        // const readStream = fs.createReadStream(req.file.path);
-        // readStream.pipe(s3Request);
-        //
-        // s3Request.on('response', s3Response => {
-        //     const wasSuccessful = s3Response.statusCode == 200;
-        //     const q = 'INSERT INTO images (image, username, title, description) VALUES ($1, $2, $3, $4)'
-        //     const params = [req.file.filename, username, title, description]
-        //
-        //     db.query(q, params)
-        //     .then(() => {
-        //         console.log(req.file.filename, wasSuccessful);
-        //         res.json({ success: wasSuccessful });
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //         res.json({ success: false });
-        //     })
-        // });
+
+        const { username, title, description } = req.body;
+
+        const s3Request = client.put(req.file.filename, {
+            'Content-Type': req.file.mimetype,
+            'Content-Length': req.file.size,
+            'x-amz-acl': 'public-read'
+        })
+        const readStream = fs.createReadStream(req.file.path)
+        readStream.pipe(s3Request)
+
+        s3Request.on('response', s3Response => {
+            console.log("it worked?", s3Response.statusCode)
+            const wasSuccessful = s3Response.statusCode == 200
+            const q = 'INSERT INTO images (image, username, title, description) VALUES ($1, $2, $3, $4)'
+            const params = [req.file.filename, username, title, description]
+
+            db.query(q, params)
+            .then(() => {
+                console.log(req.file.filename, wasSuccessful)
+                res.json({ success: wasSuccessful })
+            })
+            .catch((err) => {
+                console.log(err)
+                res.json({ success: false })
+            })
+        });
     } else {
-        res.json({ success: false });
+        res.json({ success: false })
     }
 })
 
