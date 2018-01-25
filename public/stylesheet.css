@@ -59,6 +59,50 @@ nav li { padding-right: 15px; }
     padding: 32px;
 }
 
+
+
+
+
+
+
+
+
+/* Single Image
+============================================================= */
+
+#image {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 153, 0, .75);
+    overflow-y: auto;
+}
+
+#image .single-image {
+    color: #ccc;
+    min-height: 50vh;
+    margin: 5vh 5vw;
+    background-color: #000;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+#image header {
+    background-color: white;
+    padding: 16px;
+    margin: 16px;
+}
+#image main {
+    background-color: white;
+    text-align: center;
+    padding: 32px;
+    margin: 16px;
+}
+
+
+
 /* HELPERS
     ======================================================= */
 

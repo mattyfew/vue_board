@@ -10,7 +10,8 @@
                 description: '',
                 username: '',
                 file: null
-            }
+            },
+            imageId: void 0
         },
         mounted: function() {
             var vm = this
@@ -39,6 +40,22 @@
                     .then(response => {
                         console.log(response)
                     })
+            },
+
+            showImage: function(id) {
+                this.imageId = id;
+                var img = this.images.find(function(img) {
+                    return img.id == id;
+                });
+                if (img) {
+                    // document.body.style.overflow = 'hidden';
+                }
+            },
+
+            hideImage: function() {
+                this.imageId = void 0;
+                document.body.style.overflow = '';
+                location.hash = '';
             }
         }
     })
@@ -46,15 +63,41 @@
 
     Vue.component('single-image', {
         template: '#single-image-template',
+        props: [ 'imageId' ],
         data: function() {
             return {
-                name: 'sample'
+                image: void 0
+            }
+        },
+        watch: {
+            imageId: function() {
+                this.imageId ? this.getImage() : this.hide();
+            }
+        },
+        mounted: function() {
+            this.getImage();
+        },
+        methods: {
+            getImage: function() {
+                console.log("running getImage");
+                var component = this;
+
+                axios.get('/image/' + this.imageId).then(function(response) {
+                    component.image = response.data.image;
+                    // component.comments = response.data.comments;
+                })
+            },
+            hide: function() {
+                console.log("running hide");
+                this.$emit('hide');
             }
         }
+
     })
 
     addEventListener('hashchange',  function() {
-        app.showImage(location.hash.slice(1))
+        const imageId = location.hash.slice(1)
+        app.showImage(imageId)
     })
 
 })()

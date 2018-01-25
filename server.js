@@ -53,6 +53,14 @@ app.get('/images', (req, res) => {
         .catch(e => console.log('There was an error with GET /images', e) )
 })
 
+app.get('/image/:imageId', (req, res) => {
+    const q = 'SELECT * FROM images WHERE id = $1'
+    const params = [ req.params.imageId ]
+
+    db.query(q, params)
+        .then(results => res.json({ image: results.rows[0] }) )
+})
+
 
 app.post('/upload-image', uploader.single('file'), function(req, res) {
     if (req.file) {
