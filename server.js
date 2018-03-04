@@ -49,7 +49,10 @@ app.get('/images', (req, res) => {
     const q = 'SELECT * FROM images'
 
     db.query(q)
-        .then(results => res.json({ images: results.rows }) )
+        .then(results => {
+            console.log(results.rows);
+            res.json({ images: results.rows.reverse() })
+        })
         .catch(e => console.log('There was an error with GET /images', e) )
 })
 
@@ -76,17 +79,26 @@ app.post('/upload-image', uploader.single('file'), function(req, res) {
         readStream.pipe(s3Request)
 
         s3Request.on('response', s3Response => {
-            console.log("it worked?", s3Response.statusCode)
             const wasSuccessful = s3Response.statusCode == 200
-            const q = 'INSERT INTO images (image, username, title, description) VALUES ($1, $2, $3, $4)'
+            const q = 'INSERT INTO images (image, username, title, description) VALUES ($1, $2, $3, $4) RETURNING *'
             const params = [req.file.filename, username, title, description]
 
             db.query(q, params)
-            .then(() => {
-                console.log(req.file.filename, wasSuccessful)
-                res.json({ success: wasSuccessful })
+            .then(results => {
+                console.log(req.file.filename, wasSuccessful, "results from db query", results.rows)
+                res.json({
+                    success: wasSuccessful,
+                    image: {
+                        id: results.rows[0].id,
+                        created_at: results.rows[0].created_at,
+                        image: req.file.filename,
+                        username,
+                        title,
+                        description,
+                    },
+                })
             })
-            .catch((err) => {
+            .catch(err => {
                 console.log(err)
                 res.json({ success: false })
             })

@@ -7,45 +7,46 @@
         <link rel="stylesheet" href="stylesheet.css">
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
     </head>
     <body>
-        <header id="nav-container">
-            <nav className="bar">
-                <img id="nav-logo" src="logo.png" alt="logo" />
-                <ul>
-                    <li>Profile</li>
-                    <li>Upload</li>
-                </ul>
-            </nav>
-        </header>
 
         <main>
-            <h1 class="center">Welcome to Vue_board</h1>
-            <single-image
-                v-if="imageId"
-                v-bind:image-id="imageId"
-                v-on:hide="hideImage"
-            ></single-image>
+            <header id="nav-container">
+                <nav className="bar">
+                    <img id="nav-logo" src="logo.png" alt="logo" />
+                    <ul>
+                        <li>Profile</li>
+                        <li @click="toggleUploadForm">Upload</li>
+                    </ul>
+                </nav>
+            </header>
 
-            <section id="upload-form">
-                <p>Upload a new picture here</p>
-                <form action="">
-                    <input v-model="formStuff.title" type="text" placeholder="title" name="title">
-                    <input v-model="formStuff.description" type="text" placeholder="description" name="description">
-                    <input v-model="formStuff.username" type="text" placeholder="username" name="username">
-                    <input type="file" name="file" v-on:change="chooseFile">
-                    <button type="button" @click="upload">Upload</button>
-                </form>
 
-            </section>
+            <div id="main-wrapper">
+                <h1 class="center">Vue_board</h1>
 
-            <section id="all-images-container">
-                <div class="single-image-container" v-for="image in images">
-                    <h3>{{ image.title }}</h3>
-                    <a v-bind:href="'#' + image.id"><img v-bind:src="'https://s3.amazonaws.com/vue-board/' + image.image" :alt="image.title" class="single-image"></a>
-                    <!-- shorthand ---  :src="..." -->
-                </div>
-            </section>
+                <single-image
+                    v-if="imageId"
+                    v-bind:image-id="imageId"
+                    v-on:hide="hideImage"
+                ></single-image>
+
+                <upload-form
+                    v-if="showUpload"
+                    v-on:sendimage="addImage"
+                ></upload-form>
+
+                <section id="all-images-container">
+                    <div class="single-image-container" v-for="image in images">
+                        <h3>{{ image.title }}</h3>
+                        <a v-bind:href="'#' + image.id"><img v-bind:src="'https://s3.amazonaws.com/vue-board/' + image.image" :alt="image.title" class="single-image"></a>
+                        <!-- shorthand ---  :src="..." -->
+                    </div>
+                </section>
+
+            </div>
+
         </main>
 
 
@@ -60,6 +61,19 @@
                     <img v-bind:src="'https://s3.amazonaws.com/vue-board/' + image.image" alt=""/>
                 </main>
             </div>
+        </script>
+
+        <script id="upload-form-template" type="x-template">
+            <section id="upload-form">
+                <p>Upload a new picture here</p>
+                <form action="">
+                    <input v-model="formStuff.title" type="text" placeholder="title" name="title">
+                    <input v-model="formStuff.description" type="text" placeholder="description" name="description">
+                    <input v-model="formStuff.username" type="text" placeholder="username" name="username">
+                    <input type="file" name="file" v-on:change="chooseFile">
+                    <button type="button" @click="upload">Upload</button>
+                </form>
+            </section>
         </script>
 
         <!-- <img src="http://via.placeholder.com/350x450" alt=""/> -->

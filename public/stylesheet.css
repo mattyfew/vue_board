@@ -1,3 +1,4 @@
+* { font-family: 'Open Sans', sans-serif; }
 body { margin: 0; }
 
 
@@ -9,8 +10,7 @@ body { margin: 0; }
 }
 #nav-container {
     background: #2c3e50;
-    height: 80px;
-    padding: 20px;
+    padding: 8px;
     color: white;
 }
 nav {
@@ -35,6 +35,9 @@ nav li { padding-right: 15px; }
 
 /* MAIN - all images
 ============================================================= */
+#main-wrapper {
+    margin: 24px 48px;
+}
 #all-images-container {
     display: flex;
     flex-wrap: wrap;
@@ -42,7 +45,7 @@ nav li { padding-right: 15px; }
 .single-image-container {
     border: 1px solid blue;
     padding: 32px;
-    margin: 16px;
+    margin: 16px 16px 16px 0;
 }
 .single-image {
     max-width: 300px;
@@ -55,7 +58,7 @@ nav li { padding-right: 15px; }
 
 #upload-form {
     background-color: #C4C4C4;
-    margin: 32px;
+    /* margin: 32px; */
     padding: 32px;
 }
 
