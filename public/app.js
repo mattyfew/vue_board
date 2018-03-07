@@ -8,7 +8,7 @@
             showUpload: false
         },
 
-        mounted: function() {
+        mounted() {
             var vm = this
             axios.get('/images')
                 .then(response => {
@@ -18,7 +18,7 @@
         },
 
         methods: {
-            showImage: function(id) {
+            showImage(id) {
                 this.imageId = id
                 var img = this.images.find(img => img.id == id)
                 if (img) {
@@ -26,17 +26,17 @@
                 }
             },
 
-            hideImage: function() {
+            hideImage() {
                 this.imageId = null
                 document.body.style.overflow = ''
                 location.hash = ''
             },
 
-            toggleUploadForm: function() {
+            toggleUploadForm() {
                 this.showUpload = !this.showUpload
             },
 
-            addImage: function(image) {
+            addImage(image) {
                 this.images.unshift(image)
             }
         }
@@ -44,7 +44,7 @@
 
     Vue.component('upload-form', {
         template: '#upload-form-template',
-        data: function() {
+        data() {
             return {
                 formStuff: {
                     title: '',
@@ -54,8 +54,9 @@
                 },
             }
         },
+
         methods: {
-            upload: function(e) {
+            upload(e) {
                 e.preventDefault()
                 const vm = this
 
@@ -73,11 +74,11 @@
                     })
             },
 
-            chooseFile: function(e) {
+            chooseFile(e) {
                 this.formStuff.file = e.target.files[0];
             },
 
-            hide: function(){
+            hide(){
                 this.$emit('hide')
             }
         }
@@ -86,24 +87,28 @@
     Vue.component('single-image', {
         template: '#single-image-template',
         props: [ 'imageId' ],
-        data: function() {
+        data() {
             return {
-                image: void 0
+                image: {
+                    title: '',
+                    description: '',
+                    username: ''
+                }
             }
         },
         watch: {
-            imageId: function() {
+            imageId() {
                 this.imageId ? this.getImage() : this.hide()
             }
         },
-        mounted: function() {
+        mounted() {
             this.getImage()
         },
         methods: {
-            getImage: function() {
+            getImage() {
                 var component = this
 
-                axios.get('/image/' + this.imageId).then(function(response) {
+                axios.get('/image/' + this.imageId).then(response => {
                     component.image = response.data.image
                     // component.image = response.data.results
 
@@ -117,14 +122,14 @@
                      */
                 })
             },
-            hide: function() {
+            hide(e) {
                 this.$emit('hide')
             }
         }
 
     })
 
-    addEventListener('hashchange',  function() {
+    addEventListener('hashchange', () => {
         const imageId = location.hash.slice(1)
         app.showImage(imageId)
     })
