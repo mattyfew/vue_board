@@ -19,21 +19,17 @@
 
         methods: {
             showImage: function(id) {
-                this.imageId = id;
-                var img = this.images.find(function(img) {
-                    return img.id == id;
-                });
+                this.imageId = id
+                var img = this.images.find(img => img.id == id)
                 if (img) {
                     // document.body.style.overflow = 'hidden';
                 }
             },
 
             hideImage: function() {
-                // this.imageId = void 0;
-                console.log("running hide image");
-                this.imageId = null;
-                document.body.style.overflow = '';
-                location.hash = '';
+                this.imageId = null
+                document.body.style.overflow = ''
+                location.hash = ''
             },
 
             toggleUploadForm: function() {
@@ -41,7 +37,6 @@
             },
 
             addImage: function(image) {
-                console.log("in this bitch");
                 this.images.unshift(image)
             }
         }
@@ -83,7 +78,6 @@
             },
 
             hide: function(){
-                console.log("running hide upload-form")
                 this.$emit('hide')
             }
         }
@@ -99,19 +93,18 @@
         },
         watch: {
             imageId: function() {
-                this.imageId ? this.getImage() : this.hide();
+                this.imageId ? this.getImage() : this.hide()
             }
         },
         mounted: function() {
-            this.getImage();
+            this.getImage()
         },
         methods: {
             getImage: function() {
-                console.log("running getImage");
-                var component = this;
+                var component = this
 
                 axios.get('/image/' + this.imageId).then(function(response) {
-                    component.image = response.data.image;
+                    component.image = response.data.image
                     // component.image = response.data.results
 
                     // component.comments = response.data.comments;
@@ -125,7 +118,6 @@
                 })
             },
             hide: function() {
-                console.log("running hide")
                 this.$emit('hide')
             }
         }
