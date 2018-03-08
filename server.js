@@ -108,5 +108,18 @@ app.post('/upload-image', uploader.single('file'), function(req, res) {
     }
 })
 
+app.post('/comment/:imageId', (req, res) => {
+    console.log("inside POST /comment", req.body)
+
+    const q = 'INSERT INTO comments (image_id, comment, username) VALUES ($1, $2, $3) RETURNING *'
+    const params = [ req.params.imageId, req.body.comment, req.body.username ]
+
+    db.query(q, params)
+    .then(results => {
+        console.log("successful comment insert");
+        res.json({ comment: results.rows[0] })
+    })
+})
+
 app.set('port', process.env.PORT || 8080)
 app.listen(app.get('port'), () => console.log(`I'm listening.`))

@@ -93,6 +93,10 @@
                     title: '',
                     description: '',
                     username: ''
+                },
+                commentForm: {
+                    comment: '',
+                    username: ''
                 }
             }
         },
@@ -114,6 +118,20 @@
                     // component.comments = response.data.comments;
                 })
             },
+
+            submitComment(e) {
+                console.log("yoyo", this.imageId);
+
+                axios.post(`/comment/${this.imageId}`, {
+                    comment: this.commentForm.comment,
+                    username: this.commentForm.username
+                })
+                .then(res => {
+                    console.log("response from axios", res.data)
+                }).catch(err => console.log("There was an error with POST /comment", err))
+
+            },
+
             hide(e) {
                 this.$emit('hide')
             }

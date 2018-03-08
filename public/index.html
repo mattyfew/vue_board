@@ -69,9 +69,9 @@
                         </div>
 
                         <form>
-                            <input type="text" name="comment" placeholder="Add a comment..." />
-                            <input type="text" name="username" placeholder="Your username" />
-                            <button @click="submitComment">Submit</button>
+                            <input type="text" name="comment" v-model="commentForm.comment" placeholder="Add a comment..." />
+                            <input type="text" name="username" v-model="commentForm.username" placeholder="Your username" />
+                            <button @click.prevent="submitComment">Submit</button>
                         </form>
 
                     </section>
