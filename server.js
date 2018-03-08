@@ -57,7 +57,6 @@ app.get('/image/:imageId', (req, res) => {
     }))
 })
 
-
 app.post('/upload-image', uploader.single('file'), function(req, res) {
     if (req.file) {
 
@@ -100,13 +99,8 @@ app.post('/upload-image', uploader.single('file'), function(req, res) {
 })
 
 app.post('/comment/:imageId', (req, res) => {
-    console.log("inside POST /comment", req.body)
-
     db.insertComment(req.params.imageId, req.body.comment, req.body.username)
-        .then(newComment => {
-            console.log("successful comment insert");
-            res.json({ comment: newComment })
-        })
+        .then(comment => res.json({ comment }) )
 })
 
 app.set('port', process.env.PORT || 8080)

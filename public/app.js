@@ -11,9 +11,7 @@
         mounted() {
             var vm = this
             axios.get('/images')
-                .then(response => {
-                    vm.images = response.data.images
-                })
+                .then(response => vm.images = response.data.images)
                 .catch(e => console.log("There was an error with GET /image", e))
         },
 
@@ -75,7 +73,7 @@
             },
 
             chooseFile(e) {
-                this.formStuff.file = e.target.files[0];
+                this.formStuff.file = e.target.files[0]
             },
 
             hide(){
@@ -122,17 +120,14 @@
                     comment: this.commentForm.comment,
                     username: this.commentForm.username
                 })
-                .then(res => {
-                    this.comments.push(res.data.comment)
-                }).catch(err => console.log("There was an error with POST /comment", err))
-
+                .then(res => this.comments.push(res.data.comment))
+                .catch(err => console.log("There was an error with POST /comment", err))
             },
 
             hide(e) {
                 this.$emit('hide')
             }
         }
-
     })
 
     addEventListener('hashchange', () => {
