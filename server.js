@@ -47,12 +47,8 @@ app.get('/images', (req, res) => {
 })
 
 app.get('/image/:imageId', (req, res) => {
-
     db.getSingleImage(req.params.imageId)
-        .then(image => {
-            console.log(image);
-            res.json({ image })
-        })
+        .then(image => res.json({ image }) )
 })
 
 
@@ -100,12 +96,12 @@ app.post('/upload-image', uploader.single('file'), function(req, res) {
 app.post('/comment/:imageId', (req, res) => {
     console.log("inside POST /comment", req.body)
 
-
-    .then(results => {
-        console.log("successful comment insert");
-        res.json({ comment: results.rows[0] })
-    })
+    db.insertComment(req.params.imageId, req.body.comment, req.body.username)
+        .then(newComment => {
+            console.log("successful comment insert");
+            res.json({ comment: newComment })
+        })
 })
 
 app.set('port', process.env.PORT || 8080)
-app.listen(app.get('port'), () => console.log(`I'm listening.`))
+app.listen(app.get('port'), () => console.log(`Listening on port 8080`))

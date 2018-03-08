@@ -24,3 +24,11 @@ exports.insertImage = function(filename, username, title, description) {
     return db.query(q, params)
         .then(results => results.rows[0])
 }
+
+exports.insertComment = function(imageId, comment, username) {
+    const q = 'INSERT INTO comments (image_id, comment, username) VALUES ($1, $2, $3) RETURNING *'
+    const params = [ imageId, comment, username ]
+
+    return db.query(q, params)
+        .then(results => results.rows[0])
+}
