@@ -58,12 +58,14 @@ nav li { padding-right: 15px; }
 
 #upload-form {
     background-color: #C4C4C4;
-    /* margin: 32px; */
     padding: 32px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
+
 }
-
-
-
 
 
 
@@ -73,13 +75,13 @@ nav li { padding-right: 15px; }
 /* Single Image
 ============================================================= */
 
-#image {
+#image, #upload-form-container {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(255, 153, 0, .75);
+    background: rgba(0, 0, 0, .75);
     overflow-y: auto;
 }
 

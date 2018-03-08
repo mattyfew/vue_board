@@ -16,8 +16,7 @@
                 <nav className="bar">
                     <img id="nav-logo" src="logo.png" alt="logo" />
                     <ul>
-                        <li>Profile</li>
-                        <li @click="toggleUploadForm">Upload</li>
+                        <li @click.prevent="toggleUploadForm">Upload</li>
                     </ul>
                 </nav>
             </header>
@@ -35,6 +34,7 @@
                 <upload-form
                     v-if="showUpload"
                     v-on:sendimage="addImage"
+                    v-on:hide="toggleUploadForm"
                 ></upload-form>
 
                 <section id="all-images-container">
@@ -61,22 +61,24 @@
                     <p>{{ image.username }}</p>
                 </header>
                 <main>
-                    <img v-bind:src="'https://s3.amazonaws.com/vue-board/' + image.image" alt=""/>
+                    <img v-bind:src="'https://s3.amazonaws.com/vue-board/' + image.image" :alt="image.title"/>
                 </main>
             </div>
         </script>
 
         <script id="upload-form-template" type="x-template">
-            <section id="upload-form">
-                <p>Upload a new picture here</p>
-                <form action="">
-                    <input v-model="formStuff.title" type="text" placeholder="title" name="title">
-                    <input v-model="formStuff.description" type="text" placeholder="description" name="description">
-                    <input v-model="formStuff.username" type="text" placeholder="username" name="username">
-                    <input type="file" name="file" v-on:change="chooseFile">
-                    <button type="button" @click="upload">Upload</button>
-                </form>
-            </section>
+            <div id="upload-form-container" @click.self="hide">
+                <section id="upload-form">
+                    <p>Upload a new picture here</p>
+                    <form>
+                        <input v-model="formStuff.title" type="text" placeholder="title" name="title">
+                        <input v-model="formStuff.description" type="text" placeholder="description" name="description">
+                        <input v-model="formStuff.username" type="text" placeholder="username" name="username">
+                        <input type="file" name="file" v-on:change="chooseFile">
+                        <button type="button" @click="upload">Upload</button>
+                    </form>
+                </section>
+            </div>
         </script>
 
         <script src="app.js" charset="utf-8"></script>

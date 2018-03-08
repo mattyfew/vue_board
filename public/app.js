@@ -51,7 +51,7 @@
                     description: '',
                     username: '',
                     file: null
-                },
+                }
             }
         },
 
