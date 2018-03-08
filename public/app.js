@@ -112,7 +112,6 @@
         methods: {
             getImage() {
                 axios.get('/image/' + this.imageId).then(response => {
-                    console.log(response);
                     this.image = response.data.image
                     this.comments = response.data.comments
                 })
@@ -124,7 +123,7 @@
                     username: this.commentForm.username
                 })
                 .then(res => {
-                    console.log("response from axios", res.data)
+                    this.comments.push(res.data.comment)
                 }).catch(err => console.log("There was an error with POST /comment", err))
 
             },
