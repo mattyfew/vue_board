@@ -111,15 +111,7 @@
                 axios.get('/image/' + this.imageId).then(response => {
                     component.image = response.data.image
                     // component.image = response.data.results
-
                     // component.comments = response.data.comments;
-
-                    /**
-                        component.title = response.data.results.title
-                        component.description = response.data.results.description
-                        component.username = response.data.results.username
-                        component.image = response.data.results.image
-                     */
                 })
             },
             hide(e) {

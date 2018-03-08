@@ -54,15 +54,28 @@
 
         <script id="single-image-template" type="x-template">
             <div id="image" @click.self="hide">
-                <!-- event modifier in Vue...the .stop runs e.stopPropagation() -->
-                <header>
-                    <p>{{ image.title }}</p>
-                    <p>{{ image.description }}</p>
-                    <p>{{ image.username }}</p>
-                </header>
-                <main>
-                    <img v-bind:src="'https://s3.amazonaws.com/vue-board/' + image.image" :alt="image.title"/>
-                </main>
+                <div id="single-image-inner-wrapper">
+                    <section id="single-image-wrapper">
+                        <img v-bind:src="'https://s3.amazonaws.com/vue-board/' + image.image" :alt="image.title"/>
+                    </section>
+                    <section id="single-image-content">
+
+                        <div class="username">
+                            <p>{{ image.title }} by {{ image.username }}</p>
+                        </div>
+
+                        <div class="description">
+                            <p>{{ image.description }}</p>
+                        </div>
+
+                        <form>
+                            <input type="text" name="comment" placeholder="Add a comment..." />
+                            <input type="text" name="username" placeholder="Your username" />
+                            <button @click="submitComment">Submit</button>
+                        </form>
+
+                    </section>
+                </div>
             </div>
         </script>
 

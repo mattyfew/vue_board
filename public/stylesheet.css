@@ -83,29 +83,42 @@ nav li { padding-right: 15px; }
     left: 0;
     background: rgba(0, 0, 0, .75);
     overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#image .single-image {
-    color: #ccc;
-    min-height: 50vh;
-    margin: 5vh 5vw;
-    background-color: #000;
-    border-radius: 5px;
-    padding: 20px;
+#single-image-inner-wrapper {
+    height: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    min-width: 650px;
 }
 
-#image header {
+#image #single-image-content {
     background-color: white;
-    padding: 16px;
-    margin: 16px;
+    padding: 24px;
+    margin: 16px 16px 16px 0;
 }
-#image main {
+#image #single-image-wrapper {
     background-color: white;
     text-align: center;
-    padding: 32px;
-    margin: 16px;
+    /* padding: 32px; */
+    margin: 16px 0 16px 16px;
+}
+#single-image-wrapper img {
+    height: 100%;
+    width: 100%;
 }
 
+#single-image-content .username {
+    border-bottom: 1px solid gainsboro;
+}
+
+#single-image-content .description {
+    border-bottom: 1px solid gainsboro;
+}
 
 
 /* HELPERS
