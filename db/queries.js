@@ -25,6 +25,14 @@ exports.insertImage = function(filename, username, title, description) {
         .then(results => results.rows[0])
 }
 
+exports.getComments = function(imageId) {
+    const q = 'SELECT * FROM comments WHERE image_id = $1'
+    const params = [ imageId ]
+
+    return db.query(q, params)
+        .then(results => results.rows)
+}
+
 exports.insertComment = function(imageId, comment, username) {
     const q = 'INSERT INTO comments (image_id, comment, username) VALUES ($1, $2, $3) RETURNING *'
     const params = [ imageId, comment, username ]

@@ -68,6 +68,13 @@
                             <p>{{ image.description }}</p>
                         </div>
 
+                        <div id="comments">
+                            <div v-for="comment in comments">
+                                <p>{{ comment.username }}</p>
+                                <p>{{ comment.comment }}</p>
+                            </div>
+                        </div>
+
                         <form>
                             <input type="text" name="comment" v-model="commentForm.comment" placeholder="Add a comment..." />
                             <input type="text" name="username" v-model="commentForm.username" placeholder="Your username" />

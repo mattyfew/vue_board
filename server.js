@@ -47,8 +47,14 @@ app.get('/images', (req, res) => {
 })
 
 app.get('/image/:imageId', (req, res) => {
-    db.getSingleImage(req.params.imageId)
-        .then(image => res.json({ image }) )
+    Promise.all([
+        db.getSingleImage(req.params.imageId),
+        db.getComments(req.params.imageId)
+    ])
+    .then(results => res.json({
+        image: results[0],
+        comments: results[1]
+    }))
 })
 
 

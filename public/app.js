@@ -97,7 +97,8 @@
                 commentForm: {
                     comment: '',
                     username: ''
-                }
+                },
+                comments: []
             }
         },
         watch: {
@@ -110,18 +111,14 @@
         },
         methods: {
             getImage() {
-                var component = this
-
                 axios.get('/image/' + this.imageId).then(response => {
-                    component.image = response.data.image
-                    // component.image = response.data.results
-                    // component.comments = response.data.comments;
+                    console.log(response);
+                    this.image = response.data.image
+                    this.comments = response.data.comments
                 })
             },
 
             submitComment(e) {
-                console.log("yoyo", this.imageId);
-
                 axios.post(`/comment/${this.imageId}`, {
                     comment: this.commentForm.comment,
                     username: this.commentForm.username
