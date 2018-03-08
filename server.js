@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
-const spicedPg = require('spiced-pg')
-const db = spicedPg(process.env.DATABASE_URL || require('./secrets').DATABASE_URL)
+const db = require('./db/queries')
 const bodyParser = require('body-parser')
 const knox = require('knox')
 const fs = require('fs')
@@ -10,13 +9,12 @@ const uidSafe = require('uid-safe')
 const path = require('path')
 const favicon = require('serve-favicon')
 
-
 let secrets;
 
 if (process.env.NODE_ENV == 'production') {
     secrets = process.env
 } else {
-    secrets = require('./secrets.json')
+    secrets = require('./secrets')
 }
 
 const client = knox.createClient({
@@ -44,24 +42,17 @@ app.use(express.static('./public'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}));
 
-
 app.get('/images', (req, res) => {
-    const q = 'SELECT * FROM images'
-
-    db.query(q)
-        .then(results => {
-            console.log(results.rows);
-            res.json({ images: results.rows.reverse() })
-        })
-        .catch(e => console.log('There was an error with GET /images', e) )
+    db.getImages().then(images => res.json({ images: images.reverse() }) )
 })
 
 app.get('/image/:imageId', (req, res) => {
-    const q = 'SELECT * FROM images WHERE id = $1'
-    const params = [ req.params.imageId ]
 
-    db.query(q, params)
-        .then(results => res.json({ image: results.rows[0] }) )
+    db.getSingleImage(req.params.imageId)
+        .then(image => {
+            console.log(image);
+            res.json({ image })
+        })
 })
 
 
@@ -80,29 +71,27 @@ app.post('/upload-image', uploader.single('file'), function(req, res) {
 
         s3Request.on('response', s3Response => {
             const wasSuccessful = s3Response.statusCode == 200
-            const q = 'INSERT INTO images (image, username, title, description) VALUES ($1, $2, $3, $4) RETURNING *'
-            const params = [req.file.filename, username, title, description]
 
-            db.query(q, params)
-            .then(results => {
-                console.log(req.file.filename, wasSuccessful, "results from db query", results.rows)
+            db.insertImage(req.file.filename, username, title, description)
+
+            .then(newImage => {
                 res.json({
                     success: wasSuccessful,
                     image: {
-                        id: results.rows[0].id,
-                        created_at: results.rows[0].created_at,
+                        id: newImage.id,
+                        created_at: newImage.created_at,
                         image: req.file.filename,
                         username,
                         title,
-                        description,
+                        description
                     },
                 })
             })
             .catch(err => {
-                console.log(err)
+                console.log("There was an error somewhere...", err)
                 res.json({ success: false })
             })
-        });
+        })
     } else {
         res.json({ success: false })
     }
@@ -111,10 +100,7 @@ app.post('/upload-image', uploader.single('file'), function(req, res) {
 app.post('/comment/:imageId', (req, res) => {
     console.log("inside POST /comment", req.body)
 
-    const q = 'INSERT INTO comments (image_id, comment, username) VALUES ($1, $2, $3) RETURNING *'
-    const params = [ req.params.imageId, req.body.comment, req.body.username ]
 
-    db.query(q, params)
     .then(results => {
         console.log("successful comment insert");
         res.json({ comment: results.rows[0] })
