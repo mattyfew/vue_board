@@ -21,7 +21,6 @@
                 </nav>
             </header>
 
-
             <div id="main-wrapper">
                 <h1 class="center">Vue_board</h1>
 
@@ -31,24 +30,23 @@
                     v-on:hide="hideImage"
                 ></single-image>
 
-                <upload-form
+                <transition name="bounce">
+                    <upload-form
                     v-if="showUpload"
                     v-on:sendimage="addImage"
                     v-on:hide="toggleUploadForm"
-                ></upload-form>
+                    ></upload-form>
+                </transition>
 
-                <section id="all-images-container">
-                    <div class="single-image-container" v-for="image in images">
-                        <h3>{{ image.title }}</h3>
+                <transition-group id="all-images-container" name="slide" tag="section">
+                    <div class="single-image-container" v-for="(image, i) in images" :key="i">
                         <a v-bind:href="'#' + image.id">
                             <img v-bind:src="'https://s3.amazonaws.com/vue-board/' + image.image" :alt="image.title" class="single-image">
                         </a>
-                        <!-- shorthand ---  :src="..." -->
                     </div>
-                </section>
+                </transition-group>
 
             </div>
-
         </main>
 
 

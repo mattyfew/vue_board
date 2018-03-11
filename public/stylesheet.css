@@ -43,9 +43,10 @@ nav li { padding-right: 15px; }
     flex-wrap: wrap;
 }
 .single-image-container {
-    border: 1px solid blue;
-    padding: 32px;
-    margin: 16px 16px 16px 0;
+    flex-basis: 33%;
+    text-align: center;
+    /* padding: 32px;
+    margin: 16px 16px 16px 0; */
 }
 .single-image {
     max-width: 300px;
@@ -125,3 +126,21 @@ nav li { padding-right: 15px; }
     ======================================================= */
 
 .center { text-align: center; }
+
+
+
+/* TRANSITIONS
+    ======================================================= */
+
+.bounce-enter-active, .bound-leave-active { transition: all .5s; }
+.bounce-enter, .bound-leave-to { transform: scale(0) }
+
+.slide-enter { opacity: 0; }
+.slide-enter-active { animation: slide-in 1s ease-out forwards; transition: opacity .5s; }
+.slide-leave {}
+.slide-leave-active { animation: slide-out 1s ease-out forwards; transition: opacity 1s; opacity: 0; }
+
+@keyframes slide-in {
+    from { transform: translateX(20px); }
+    to { transform: translateX(0); }
+}
