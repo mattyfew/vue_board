@@ -58,8 +58,9 @@
                     </section>
                     <section id="single-image-content">
 
-                        <div class="username">
-                            <p>{{ image.title }} by {{ image.username }}</p>
+                        <div class="single-image-title">
+                            <p>{{ image.title }} <br/>
+                            by <span class="single-title-username">{{ image.username }}</p>
                         </div>
 
                         <div class="description">
@@ -67,14 +68,13 @@
                         </div>
 
                         <div id="comments">
-                            <div v-for="comment in comments">
-                                <p>{{ comment.username }}</p>
-                                <p>{{ comment.comment }}</p>
+                            <div v-for="comment in comments" class="comment">
+                                <p><span class="comment-username">{{ comment.username }}</span> {{ comment.comment }}</p>
                             </div>
                         </div>
 
-                        <form>
-                            <input type="text" name="comment" v-model="commentForm.comment" placeholder="Add a comment..." />
+                        <form id="comment-form">
+                            <textarea type="text" name="comment" v-model="commentForm.comment" placeholder="Add a comment..." ></textarea>
                             <input type="text" name="username" v-model="commentForm.username" placeholder="Your username" />
                             <button @click.prevent="submitComment">Submit</button>
                         </form>

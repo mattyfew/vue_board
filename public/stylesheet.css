@@ -113,13 +113,34 @@ nav li { padding-right: 15px; }
     width: 100%;
 }
 
-#single-image-content .username {
+#single-image-content .single-image-title {
     border-bottom: 1px solid gainsboro;
+}
+.single-title-username {
+    font-weight: 700;
 }
 
 #single-image-content .description {
     border-bottom: 1px solid gainsboro;
 }
+
+#single-image-content .description p {
+    background-color: #ececec;
+    padding: 24px 8px;
+}
+
+
+
+
+/* COMMENTS
+    ======================================================= */
+
+.comment .comment-username { font-weight: 700; margin-right: 5px; }
+
+#comment-form textarea { width: 100%; }
+#comment-form input { width: 100%; }
+
+
 
 
 /* HELPERS

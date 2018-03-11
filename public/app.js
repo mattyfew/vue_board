@@ -120,7 +120,13 @@
                     comment: this.commentForm.comment,
                     username: this.commentForm.username
                 })
-                .then(res => this.comments.push(res.data.comment))
+                .then(res => {
+                    this.commentForm = {
+                        comment: '',
+                        username: ''
+                    }
+                    this.comments.push(res.data.comment)
+                })
                 .catch(err => console.log("There was an error with POST /comment", err))
             },
 
