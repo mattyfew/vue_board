@@ -22,6 +22,7 @@ const client = knox.createClient({
     secret: secrets.AWS_SECRET,
     bucket: secrets.BUCKET
 })
+
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, __dirname + '/uploads');
@@ -29,13 +30,18 @@ const diskStorage = multer.diskStorage({
     filename: function (req, file, callback) {
       uidSafe(24).then(function(uid) {
           callback(null, uid + path.extname(file.originalname));
-      });
+      })
     }
-});
+})
+
 const uploader = multer({
     storage: diskStorage,
-    limits: { filesize: 2097152 }
-});
+    limits: { filesize: 2097152 },
+    onError: function(err, next) {
+        console.log('error in multer', err);
+        next(err)
+    }
+})
 
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(express.static('./public'))
@@ -72,10 +78,12 @@ app.post('/upload-image', uploader.single('file'), function(req, res) {
 
         s3Request.on('response', s3Response => {
             const wasSuccessful = s3Response.statusCode == 200
+            console.log(wasSuccessful);
 
             db.insertImage(req.file.filename, username, title, description)
 
             .then(newImage => {
+                console.log("our newImage", newImage);
                 res.json({
                     success: wasSuccessful,
                     image: {

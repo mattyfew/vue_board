@@ -1,6 +1,6 @@
 (function(){
 
-    var app = new Vue({
+    const app = new Vue({
         el: 'main',
         data: {
             images: [],
@@ -11,7 +11,10 @@
         mounted() {
             var vm = this
             axios.get('/images')
-                .then(response => vm.images = response.data.images)
+                .then(response => {
+                    console.log(response.data.images);
+                    vm.images = response.data.images
+                })
                 .catch(e => console.log("There was an error with GET /image", e))
         },
 
@@ -25,6 +28,7 @@
             },
 
             hideImage() {
+                console.log("running hideImage");
                 this.imageId = null
                 document.body.style.overflow = ''
                 location.hash = ''
@@ -77,7 +81,7 @@
             },
 
             hide(){
-                this.$emit('hide')
+                this.$emit('hide-upload-form')
             }
         }
     })
@@ -131,7 +135,8 @@
             },
 
             hide(e) {
-                this.$emit('hide')
+                console.log("running hide!");
+                this.$emit('close-the-image')
             }
         }
     })

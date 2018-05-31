@@ -27,14 +27,14 @@
                 <single-image
                     v-if="imageId"
                     v-bind:image-id="imageId"
-                    v-on:hide="hideImage"
+                    v-on:close-the-image="hideImage"
                 ></single-image>
 
                 <transition name="bounce">
                     <upload-form
-                    v-if="showUpload"
-                    v-on:sendimage="addImage"
-                    v-on:hide="toggleUploadForm"
+                        v-if="showUpload"
+                        v-on:sendimage="addImage"
+                        v-on:hide-upload-form="toggleUploadForm"
                     ></upload-form>
                 </transition>
 

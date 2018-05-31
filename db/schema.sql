@@ -18,4 +18,12 @@ CREATE TABLE comments(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO images (image, username, title, description) VALUES ('JxwZ_JizLwkozxFw1t04NFmpqUF1U835.jpg', 'mattyfew', 'Skrillex', 'chillin');
+-- INSERT INTO images (image, username, title, description) VALUES ('', 'mattyfew', 'Rox in the Ocean', 'Looking out into the ocean');
+-- INSERT INTO images (image, username, title, description) VALUES ('JxwZ_JizLwkozxFw1t04NFmpqUF1U835.jpg', 'mattyfew', 'Skrillex', 'chillin');
+-- INSERT INTO images (image, username, title, description) VALUES ('JxwZ_JizLwkozxFw1t04NFmpqUF1U835.jpg', 'mattyfew', 'Skrillex', 'chillin');
+-- INSERT INTO images (image, username, title, description) VALUES ('JxwZ_JizLwkozxFw1t04NFmpqUF1U835.jpg', 'mattyfew', 'Skrillex', 'chillin');
+-- INSERT INTO images (image, username, title, description) VALUES ('JxwZ_JizLwkozxFw1t04NFmpqUF1U835.jpg', 'mattyfew', 'Skrillex', 'chillin');
+-- INSERT INTO images (image, username, title, description) VALUES ('JxwZ_JizLwkozxFw1t04NFmpqUF1U835.jpg', 'mattyfew', 'Skrillex', 'chillin');
+-- INSERT INTO images (image, username, title, description) VALUES ('JxwZ_JizLwkozxFw1t04NFmpqUF1U835.jpg', 'mattyfew', 'Skrillex', 'chillin');
+-- INSERT INTO images (image, username, title, description) VALUES ('JxwZ_JizLwkozxFw1t04NFmpqUF1U835.jpg', 'mattyfew', 'Skrillex', 'chillin');
+-- INSERT INTO images (image, username, title, description) VALUES ('JxwZ_JizLwkozxFw1t04NFmpqUF1U835.jpg', 'mattyfew', 'Skrillex', 'chillin');
